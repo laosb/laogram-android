@@ -39,7 +39,7 @@ public class StickerCell extends FrameLayout {
         super(context);
 
         imageView = new BackupImageView(context);
-        imageView.setAspectFit(true);
+        imageView.setAspectFit(false);
         addView(imageView, LayoutHelper.createFrame(66, 66, Gravity.CENTER_HORIZONTAL, 0, 5, 0, 0));
     }
 

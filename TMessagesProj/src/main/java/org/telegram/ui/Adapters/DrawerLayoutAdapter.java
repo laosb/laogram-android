@@ -112,6 +112,7 @@ public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter {
         items.add(new Item(3, LocaleController.getString("NewSecretChat", R.string.NewSecretChat), R.drawable.menu_secret));
         items.add(new Item(4, LocaleController.getString("NewChannel", R.string.NewChannel), R.drawable.menu_broadcast));
         items.add(null); // divider
+        items.add(new Item(101, LocaleController.getString("Discover", R.string.Discover), R.drawable.search_web));
         items.add(new Item(6, LocaleController.getString("Contacts", R.string.Contacts), R.drawable.menu_contacts));
         if (MessagesController.getInstance().callsEnabled) {
             items.add(new Item(10, LocaleController.getString("Calls", R.string.Calls), R.drawable.menu_calls));

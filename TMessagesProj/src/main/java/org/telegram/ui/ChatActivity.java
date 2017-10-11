@@ -9794,7 +9794,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                     }
 
                     @Override
-                    public void didPressedUrl(MessageObject messageObject, final CharacterStyle url, boolean longPress) {
+                    public void didPressedUrl(final MessageObject messageObject, final CharacterStyle url, final boolean longPress) {
                         if (url == null) {
                             return;
                         }
@@ -9807,7 +9807,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                                 MessagesController.openChatOrProfileWith(user, null, ChatActivity.this, 0, false);
                             }
                         } else if (url instanceof URLSpanNoUnderline) {
-                            String str = ((URLSpanNoUnderline) url).getURL();
+                            final String str = ((URLSpanNoUnderline) url).getURL();
                             if (str.startsWith("@")) {
                                 MessagesController.openByUserName(str.substring(1), ChatActivity.this, 0);
                             } else if (str.startsWith("#")) {
@@ -9820,7 +9820,17 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                                 }
                             } else if (str.startsWith("/")) {
                                 if (URLSpanBotCommand.enabled) {
-                                    chatActivityEnterView.setCommand(messageObject, str, longPress, currentChat != null && currentChat.megagroup);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this.getParentActivity());
+                                    builder.setTitle(LocaleController.getString("AppName", R.string.AppName));
+                                    builder.setPositiveButton(LocaleController.getString("OK", R.string.OK), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            chatActivityEnterView.setCommand(messageObject, str, longPress, currentChat != null && currentChat.megagroup);
+                                        }
+                                    });
+                                    builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
+                                    builder.setMessage(LocaleController.getString("DoSendThisCommand", R.string.DoSendThisCommand));
+                                    ChatActivity.this.showDialog(builder.create());
                                 }
                             }
                         } else {

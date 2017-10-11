@@ -418,6 +418,9 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
                 } else if (id == 10) {
                     presentFragment(new CallLogActivity());
                     drawerLayoutContainer.closeDrawer(false);
+                } else if (id == 101) { // Use higher numbers to avoid collision with next Telegram versions.
+                    Browser.openUrl(LaunchActivity.this, LocaleController.getString("DiscoverUrl", R.string.DiscoverUrl));
+                    drawerLayoutContainer.closeDrawer(false);
                 }
             }
         });
