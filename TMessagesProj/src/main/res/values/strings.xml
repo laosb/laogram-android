@@ -958,7 +958,7 @@
     <string name="Emoji">Emoji</string>
     <string name="EmojiBigSize">Draw single big emoji</string>
     <string name="EmojiUseDefault">Use system default emoji</string>
-    <string name="TelegramVersion">Telegram for Android %1$s</string>
+    <string name="TelegramVersion">Laogram for Android %1$s</string>
     <string name="DebugMenu">Debug Menu</string>
     <string name="DebugMenuImportContacts">Import Contacts</string>
     <string name="DebugMenuReloadContacts">Reload Contacts</string>
