@@ -88,7 +88,7 @@ android {
         }
     }
 
-    defaultConfig.versionCode = 1048
+    defaultConfig.versionCode = 1054
 
     sourceSets.debug {
         manifest.srcFile 'config/debug/AndroidManifest.xml'
