@@ -166,7 +166,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         </activity>
         <activity
-            android:name="com.unihubs.laogram.OpenChatReceiver"
+            android:name="org.telegram.messenger.OpenChatReceiver"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:exported="true">
         </activity>
@@ -244,7 +244,7 @@
         </service>
 
         <service
-            android:name="com.unihubs.laogram.TgChooserTargetService"
+            android:name="org.telegram.messenger.TgChooserTargetService"
             android:label="@string/AppName"
             android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE">
             <intent-filter>
