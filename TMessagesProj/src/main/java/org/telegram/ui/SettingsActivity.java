@@ -164,6 +164,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
     private int contactsReimportRow;
     private int contactsSortRow;
     private int autoplayGifsRow;
+    private int languageSectionRow;
+    private int languageSectionRowB;
     private int rowCount;
 
     private final static int edit_name = 1;
@@ -253,7 +255,6 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         dataRow = rowCount++;
         backgroundRow = rowCount++;
         themeRow = rowCount++;
-        languageRow = rowCount++;
         enableAnimationsRow = rowCount++;
         messagesSectionRow = rowCount++;
         messagesSectionRow2 = rowCount++;
@@ -279,6 +280,9 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             dumpCallStatsRow = rowCount++;
             switchBackendButtonRow = rowCount++;
         }
+        languageSectionRow = rowCount++;
+        languageRow = rowCount++;
+        languageSectionRowB = rowCount++;
         versionRow = rowCount++;
         //contactsSectionRow = rowCount++;
         //contactsReimportRow = rowCount++;
@@ -1213,7 +1217,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                         int size = preferences.getInt("fons_size", AndroidUtilities.isTablet() ? 18 : 16);
                         textCell.setTextAndValue(LocaleController.getString("TextSize", R.string.TextSize), String.format("%d", size), true);
                     } else if (position == languageRow) {
-                        textCell.setTextAndValue(LocaleController.getString("Language", R.string.Language), LocaleController.getCurrentLanguageName(), true);
+                        textCell.setTextAndValue("\uD83C\uDDE8\uD83C\uDDF3\uD83C\uDDE8\uD83C\uDDE6\uD83C\uDDF7\uD83C\uDDFA\uD83C\uDDFA\uD83C\uDDF8\uD83C\uDDEC\uD83C\uDDE7\uD83C\uDDE9\uD83C\uDDEA", LocaleController.getCurrentLanguageName(), true);
                     } else if (position == themeRow) {
                         textCell.setTextAndValue(LocaleController.getString("Theme", R.string.Theme), Theme.getCurrentThemeName(), true);
                     } else if (position == contactsSortRow) {
@@ -1406,7 +1410,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             if (position == emptyRow || position == overscrollRow) {
                 return 0;
             }
-            if (position == settingsSectionRow || position == supportSectionRow || position == messagesSectionRow || position == contactsSectionRow) {
+            if (position == settingsSectionRow || position == supportSectionRow || position == messagesSectionRow || position == contactsSectionRow || position == languageSectionRow || position == languageSectionRowB) {
                 return 1;
             } else if (position == enableAnimationsRow || position == sendByEnterRow || position == saveToGalleryRow || position == autoplayGifsRow || position == raiseToSpeakRow || position == customTabsRow || position == directShareRow || position == dumpCallStatsRow) {
                 return 3;
