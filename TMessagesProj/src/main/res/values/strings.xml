@@ -873,6 +873,8 @@
     <string name="ChatBackground">Chat Background</string>
     <string name="MessagesSettings">Messages</string>
     <string name="SendByEnter">Send by Enter</string>
+    <string name="MapUseAutonavi">Use Autonavi Maps</string>
+    <string name="StickersInBubbles">Show Stickers in Chat Bubbles</string>
     <string name="TerminateAllSessions">Terminate All Other Sessions</string>
     <string name="Events">Events</string>
     <string name="ContactJoined">Contact joined Telegram</string>
@@ -882,7 +884,7 @@
     <string name="AskAQuestionInfo">Please note that Telegram Support is done by volunteers. We try to respond as quickly as possible, but it may take a while.\n\nPlease take a look at the <![CDATA[<a href=\"https://telegram.org/faq#general\">Telegram FAQ</a>]]>: it has answers to most questions and important tips for <![CDATA[<a href=\"https://telegram.org/faq#troubleshooting\">troubleshooting</a>]]>.</string>
     <string name="AskButton">Ask a volunteer</string>
     <string name="Discover">Discover</string>
-    <string name="DiscoverUrl">https://laosb.github.io</string>
+    <string name="DiscoverUrl">https://laogram-internal.unihubs.com</string>
     <string name="TelegramFaq">Telegram FAQ</string>
     <string name="TelegramFaqUrl">https://telegram.org/faq</string>
     <string name="PrivacyPolicy">Privacy Policy</string>

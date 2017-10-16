@@ -898,6 +898,8 @@
   <string name="ChatBackground">聊天背景</string>
   <string name="MessagesSettings">聊天设置</string>
   <string name="SendByEnter">使用回车键发送消息</string>
+  <string name="MapUseAutonavi">使用高德地图</string>
+  <string name="StickersInBubbles">在聊天气泡中显示贴纸</string>
   <string name="TerminateAllSessions">注销所有其它设备上的会话</string>
   <string name="Events">事件</string>
   <string name="ContactJoined">联系人已加入 Telegram</string>
@@ -907,7 +909,7 @@
   <string name="AskAQuestionInfo">请注意，Telegram 的支持服务来自志愿者，反馈时请使用英文。我们会尽快回复，但仍然需要一点时间。\n\n请前往 <![CDATA[<a href="https://telegram.org/faq#general">Telegram 常见问题</a>]]> 看看：那里有绝大多数问题的答案和重要的<![CDATA[<a href="https://telegram.org/faq#troubleshooting">故障排除</a>]]>提示。</string>
   <string name="AskButton">向志愿者提问</string>
   <string name="Discover">发现</string>
-  <string name="DiscoverUrl">https://laosb.github.io</string>
+  <string name="DiscoverUrl">https://laogram-internal.unihubs.com/index.zh_CN.html</string>
   <string name="TelegramFaq">Telegram 常见问题</string>
   <string name="TelegramFaqUrl">https://telegram.org/faq</string>
   <string name="PrivacyPolicy">隐私策略</string>

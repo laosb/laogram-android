@@ -166,6 +166,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
     private int autoplayGifsRow;
     private int languageSectionRow;
     private int languageSectionRowB;
+    private int mapUseAutonaviRow;
+    private int stickersInBubblesRow;
     private int rowCount;
 
     private final static int edit_name = 1;
@@ -263,8 +265,10 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             directShareRow = rowCount++;
         }
         stickersRow = rowCount++;
+        stickersInBubblesRow = rowCount++;
         //emojiRow = rowCount++;
         textSizeRow = rowCount++;
+        mapUseAutonaviRow = rowCount++;
         raiseToSpeakRow = rowCount++;
         sendByEnterRow = rowCount++;
         autoplayGifsRow = rowCount++;
@@ -481,6 +485,24 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     editor.commit();
                     if (view instanceof TextCheckCell) {
                         ((TextCheckCell) view).setChecked(!send);
+                    }
+                } else if (position == mapUseAutonaviRow) {
+                    SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+                    boolean useAutonavi = preferences.getBoolean("map_autonavi", true);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("map_autonavi", !useAutonavi);
+                    editor.commit();
+                    if (view instanceof TextCheckCell) {
+                        ((TextCheckCell) view).setChecked(!useAutonavi);
+                    }
+                } else if (position == stickersInBubblesRow) {
+                    SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+                    boolean stickersInBubbles = preferences.getBoolean("stickers_in_bubbles", false);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("stickers_in_bubbles", !stickersInBubbles);
+                    editor.commit();
+                    if (view instanceof TextCheckCell) {
+                        ((TextCheckCell) view).setChecked(!stickersInBubbles);
                     }
                 } else if (position == raiseToSpeakRow) {
                     MediaController.getInstance().toogleRaiseToSpeak();
@@ -1269,6 +1291,10 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                         textCell.setTextAndCheck(LocaleController.getString("EnableAnimations", R.string.EnableAnimations), preferences.getBoolean("view_animations", true), false);
                     } else if (position == sendByEnterRow) {
                         textCell.setTextAndCheck(LocaleController.getString("SendByEnter", R.string.SendByEnter), preferences.getBoolean("send_by_enter", false), true);
+                    } else if (position == mapUseAutonaviRow) {
+                        textCell.setTextAndCheck(LocaleController.getString("MapUseAutonavi", R.string.MapUseAutonavi), preferences.getBoolean("map_autonavi", true), true);
+                    } else if (position == stickersInBubblesRow) {
+                        textCell.setTextAndCheck(LocaleController.getString("StickersInBubbles", R.string.StickersInBubbles), preferences.getBoolean("stickers_in_bubbles", false), true);
                     } else if (position == saveToGalleryRow) {
                         textCell.setTextAndCheck(LocaleController.getString("SaveToGallerySettings", R.string.SaveToGallerySettings), MediaController.getInstance().canSaveToGallery(), false);
                     } else if (position == autoplayGifsRow) {
@@ -1337,8 +1363,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         @Override
         public boolean isEnabled(RecyclerView.ViewHolder holder) {
             int position = holder.getAdapterPosition();
-            return position == textSizeRow || position == enableAnimationsRow || position == notificationRow || position == backgroundRow || position == numberRow ||
-                    position == askQuestionRow || position == sendLogsRow || position == sendByEnterRow || position == autoplayGifsRow || position == privacyRow ||
+            return position == textSizeRow || position == enableAnimationsRow || position == notificationRow || position == backgroundRow || position == numberRow || position == stickersInBubblesRow ||
+                    position == askQuestionRow || position == sendLogsRow || position == sendByEnterRow || position == mapUseAutonaviRow || position == autoplayGifsRow || position == privacyRow ||
                     position == clearLogsRow || position == languageRow || position == usernameRow || position == bioRow ||
                     position == switchBackendButtonRow || position == telegramFaqRow || position == contactsSortRow || position == contactsReimportRow || position == saveToGalleryRow ||
                     position == stickersRow || position == raiseToSpeakRow || position == privacyPolicyRow || position == customTabsRow || position == directShareRow || position == versionRow ||
@@ -1412,7 +1438,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             }
             if (position == settingsSectionRow || position == supportSectionRow || position == messagesSectionRow || position == contactsSectionRow || position == languageSectionRow || position == languageSectionRowB) {
                 return 1;
-            } else if (position == enableAnimationsRow || position == sendByEnterRow || position == saveToGalleryRow || position == autoplayGifsRow || position == raiseToSpeakRow || position == customTabsRow || position == directShareRow || position == dumpCallStatsRow) {
+            } else if (position == enableAnimationsRow || position == mapUseAutonaviRow || position == stickersInBubblesRow || position == sendByEnterRow || position == saveToGalleryRow || position == autoplayGifsRow || position == raiseToSpeakRow || position == customTabsRow || position == directShareRow || position == dumpCallStatsRow) {
                 return 3;
             } else if (position == notificationRow || position == themeRow || position == backgroundRow || position == askQuestionRow || position == sendLogsRow || position == privacyRow || position == clearLogsRow || position == switchBackendButtonRow || position == telegramFaqRow || position == contactsReimportRow || position == textSizeRow || position == languageRow || position == contactsSortRow || position == stickersRow || position == privacyPolicyRow || position == emojiRow || position == dataRow) {
                 return 2;

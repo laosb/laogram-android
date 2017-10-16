@@ -9,7 +9,9 @@
 package org.telegram.ui.Cells;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -39,6 +41,7 @@ import android.view.ViewStructure;
 
 import org.telegram.PhoneFormat.PhoneFormat;
 import org.telegram.messenger.AndroidUtilities;
+import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.ContactsController;
 import org.telegram.messenger.Emoji;
@@ -1420,7 +1423,13 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
             }
             double lat = object.messageOwner.media.geo.lat;
             double lon = object.messageOwner.media.geo._long;
-            String url = String.format(Locale.US, "https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=15&size=100x100&maptype=roadmap&scale=%d&markers=color:red|size:mid|%f,%f&sensor=false", lat, lon, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lat, lon);
+            String url;
+            SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+            if (preferences.getBoolean("map_autonavi", true)) {
+                url = String.format(Locale.US, "http://restapi.amap.com/v3/staticmap?location=%.6f,%.6f&zoom=17&size=100*100&scale=%d&markers=small,,A:%.6f,%.6f&key=e39d2978b7f38d035ca97643c17eecde", lon, lat, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lon, lat);
+            } else {
+                url = String.format(Locale.US, "https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=15&size=100x100&maptype=roadmap&scale=%d&markers=color:red|size:mid|%f,%f&sensor=false", lat, lon, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lat, lon);
+            }
             if (!url.equals(currentUrl)) {
                 return true;
             }
@@ -2815,17 +2824,29 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                         availableTimeWidth = maxWidth;
                         photoWidth = AndroidUtilities.dp(86);
                         photoHeight = AndroidUtilities.dp(86);
-                        currentUrl = String.format(Locale.US, "https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=15&size=72x72&maptype=roadmap&scale=%d&markers=color:red|size:mid|%f,%f&sensor=false", lat, lon, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lat, lon);
+                        SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+                        if (preferences.getBoolean("map_autonavi", true)) {
+                            currentUrl = String.format(Locale.US, "http://restapi.amap.com/v3/staticmap?location=%.6f,%.6f&zoom=17&size=72*72&scale=%d&markers=small,,A:%.6f,%.6f&key=e39d2978b7f38d035ca97643c17eecde", lon, lat, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lon, lat);
+                        } else {
+                            currentUrl = String.format(Locale.US, "https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=15&size=72x72&maptype=roadmap&scale=%d&markers=color:red|size:mid|%f,%f&sensor=false", lat, lon, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lat, lon);
+                        }
                     } else {
                         availableTimeWidth = AndroidUtilities.dp(200 - 14);
                         photoWidth = AndroidUtilities.dp(200);
                         photoHeight = AndroidUtilities.dp(100);
                         backgroundWidth = photoWidth + AndroidUtilities.dp(12);
-                        currentUrl = String.format(Locale.US, "https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=15&size=200x100&maptype=roadmap&scale=%d&markers=color:red|size:mid|%f,%f&sensor=false", lat, lon, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lat, lon);
+                        SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+                        if (preferences.getBoolean("map_autonavi", true)) {
+                            currentUrl = String.format(Locale.US, "http://restapi.amap.com/v3/staticmap?location=%.6f,%.6f&zoom=17&size=200*100&scale=%d&markers=small,,A:%.6f,%.6f&key=e39d2978b7f38d035ca97643c17eecde", lon, lat, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lon, lat);
+                        } else {
+                            currentUrl = String.format(Locale.US, "https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=15&size=200x100&maptype=roadmap&scale=%d&markers=color:red|size:mid|%f,%f&sensor=false", lat, lon, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lat, lon);
+                        }
                     }
                     photoImage.setImage(currentUrl, null, Theme.chat_locationDrawable[messageObject.isOutOwner() ? 1 : 0], null, 0);
+                    FileLog.d(currentUrl);
                 } else if (messageObject.type == 13) { //webp
-                    drawBackground = false;
+                    SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+                    drawBackground = preferences.getBoolean("stickers_in_bubbles", false);
                     for (int a = 0; a < messageObject.messageOwner.media.document.attributes.size(); a++) {
                         TLRPC.DocumentAttribute attribute = messageObject.messageOwner.media.document.attributes.get(a);
                         if (attribute instanceof TLRPC.TL_documentAttributeImageSize) {
