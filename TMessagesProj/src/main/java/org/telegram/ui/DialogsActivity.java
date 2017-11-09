@@ -233,6 +233,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
             @Override
             public void onSearchExpand() {
                 searching = true;
+                tabLayout.setVisibility(View.GONE);
                 if (listView != null) {
                     if (searchString != null) {
                         listView.setEmptyView(searchEmptyView);
@@ -259,6 +260,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
             public void onSearchCollapse() {
                 searching = false;
                 searchWas = false;
+                tabLayout.setVisibility(View.VISIBLE);
                 if (listView != null) {
                     searchEmptyView.setVisibility(View.GONE);
                     if (MessagesController.getInstance().loadingDialogs && MessagesController.getInstance().dialogs.isEmpty()) {
