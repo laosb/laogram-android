@@ -96,6 +96,10 @@
     <string name="PaymentWarningText">Neither Telegram, nor %1$s will have access to your credit card information. Credit card details will be handled only by the payment system, %2$s.\n\nPayments will go directly to the developer of %1$s. Telegram cannot provide any guarantees, so proceed at your own risk. In case of problems, please contact the developer of %1$s or your bank.</string>
     <!--chats view-->
     <string name="NewConversationShortcut">New conversation</string>
+    <string name="All">All</string>
+    <string name="Individuals">Individuals</string>
+    <string name="Groups">Groups</string>
+    <string name="Channels">Channels</string>
     <string name="Settings">Settings</string>
     <string name="Contacts">Contacts</string>
     <string name="NewGroup">New Group</string>

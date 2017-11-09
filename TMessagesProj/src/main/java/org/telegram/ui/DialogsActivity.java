@@ -357,10 +357,10 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         tabLayout.setBackgroundColor(Theme.getColor(Theme.key_chats_menuBackground));
         tabLayout.setTabTextColors(Theme.getColor(Theme.key_chats_menuItemText), Theme.getColor(Theme.key_chats_menuItemText));
         tabLayout.setSelectedTabIndicatorColor(Theme.getColor(Theme.key_chats_actionBackground));
-        tabLayout.addTab(tabLayout.newTab().setText("全部").setTag("all"));
-        tabLayout.addTab(tabLayout.newTab().setText("私聊").setTag("users"));
-        tabLayout.addTab(tabLayout.newTab().setText("群组").setTag("groups"));
-        tabLayout.addTab(tabLayout.newTab().setText("频道").setTag("channels"));
+        tabLayout.addTab(tabLayout.newTab().setText(LocaleController.getString("All", R.string.All)).setTag("all"));
+        tabLayout.addTab(tabLayout.newTab().setText(LocaleController.getString("Individuals", R.string.Individuals)).setTag("users"));
+        tabLayout.addTab(tabLayout.newTab().setText(LocaleController.getString("Groups", R.string.Groups)).setTag("groups"));
+        tabLayout.addTab(tabLayout.newTab().setText(LocaleController.getString("Channels", R.string.Channels)).setTag("channels"));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

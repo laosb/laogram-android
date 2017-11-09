@@ -93,6 +93,10 @@
   <string name="PaymentWarningText">Telegram 和 %1$s 都无法获得您的信用卡信息。信用卡信息将只会被支付平台 %2$s 处理。\n\n款项款将会直接发送给 %1$s 的开发者。Telegram 和 Laogram 不能提供任何形式的担保，继续付款所带来的风险将由您自己承担。如果遇到问题，请联系 %1$s 的开发者或者您的银行。</string>
   <!--chats view-->
   <string name="NewConversationShortcut">新建对话</string>
+  <string name="All">全部</string>
+  <string name="Individuals">个人</string>
+  <string name="Groups">群组</string>
+  <string name="Channels">频道</string>
   <string name="Settings">设置</string>
   <string name="Contacts">联系人</string>
   <string name="NewGroup">新建群组</string>
