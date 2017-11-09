@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.telegram.SQLite.SQLiteCursor;
@@ -197,6 +198,8 @@ public class MessagesController implements NotificationCenter.NotificationCenter
 
     private static volatile MessagesController Instance = null;
 
+    private String currentDialogFilter = "all";
+
     private final Comparator<TLRPC.TL_dialog> dialogComparator = new Comparator<TLRPC.TL_dialog>() {
         @Override
         public int compare(TLRPC.TL_dialog dialog1, TLRPC.TL_dialog dialog2) {
@@ -314,6 +317,12 @@ public class MessagesController implements NotificationCenter.NotificationCenter
                 FileLog.e(e);
             }
         }
+    }
+
+    public void updateDialogFilter(String dialogFilter) {
+        currentDialogFilter = dialogFilter;
+        loadDialogs(0, 100, true);
+        sortDialogs(null);
     }
 
     public void updateConfig(final TLRPC.TL_config config) {
@@ -8126,27 +8135,31 @@ public class MessagesController implements NotificationCenter.NotificationCenter
         dialogsGroupsOnly.clear();
         Collections.sort(dialogs, dialogComparator);
         for (int a = 0; a < dialogs.size(); a++) {
+            boolean shouldBeDropped = false;
             TLRPC.TL_dialog d = dialogs.get(a);
             int high_id = (int) (d.id >> 32);
             int lower_id = (int) d.id;
             if (lower_id != 0 && high_id != 1) {
+                TLRPC.Chat chat = getChat(-lower_id);
                 dialogsServerOnly.add(d);
+                if ((chat == null || !chat.broadcast) && currentDialogFilter.equals("channels")) shouldBeDropped = true;
                 if (DialogObject.isChannel(d)) {
-                    TLRPC.Chat chat = getChat(-lower_id);
                     if (chat != null && (chat.megagroup && (chat.admin_rights != null && chat.admin_rights.post_messages) || chat.creator)) {
                         dialogsGroupsOnly.add(d);
                     }
+                    if ((chat.broadcast && currentDialogFilter.equals("groups")) || currentDialogFilter.equals("users")) shouldBeDropped = true;
                 } else if (lower_id < 0) {
                     if (chatsDict != null) {
-                        TLRPC.Chat chat = chatsDict.get(-lower_id);
-                        if (chat != null && chat.migrated_to != null) {
-                            dialogs.remove(a);
-                            a--;
-                            continue;
-                        }
+                        if (chat != null && chat.migrated_to != null) shouldBeDropped = true;
                     }
                     dialogsGroupsOnly.add(d);
-                }
+                    if (currentDialogFilter.equals("users") || currentDialogFilter.equals("channels")) shouldBeDropped = true;
+                } else if (currentDialogFilter.equals("groups") || currentDialogFilter.equals("channels")) shouldBeDropped = true;
+            } else if (currentDialogFilter.equals("groups") || currentDialogFilter.equals("channels")) shouldBeDropped = true;
+
+            if (shouldBeDropped) {
+                dialogs.remove(a);
+                a--;
             }
         }
     }

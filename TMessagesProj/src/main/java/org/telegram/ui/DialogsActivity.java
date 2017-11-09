@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Outline;
@@ -25,6 +26,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -36,9 +38,13 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
+import android.support.design.widget.TabLayout;
+
 import org.telegram.messenger.AndroidUtilities;
+import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.ChatObject;
 import org.telegram.messenger.DialogObject;
@@ -86,6 +92,7 @@ import org.telegram.ui.Components.RadialProgressView;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.ActionBar.Theme;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 public class DialogsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
@@ -101,6 +108,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
     private ImageView floatingButton;
     private RecyclerView sideMenu;
     private FragmentContextView fragmentContextView;
+    private TabLayout tabLayout;
 
     private TextView emptyTextView1;
     private TextView emptyTextView2;
@@ -339,8 +347,37 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
             sideMenu.getAdapter().notifyDataSetChanged();
         }
 
+        LinearLayout linearLayout = new LinearLayout(context);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        fragmentView = linearLayout;
+
         FrameLayout frameLayout = new FrameLayout(context);
-        fragmentView = frameLayout;
+
+        tabLayout = new TabLayout(context);
+        tabLayout.setBackgroundColor(Theme.getColor(Theme.key_chats_menuBackground));
+        tabLayout.setTabTextColors(Theme.getColor(Theme.key_chats_menuItemText), Theme.getColor(Theme.key_chats_menuItemText));
+        tabLayout.setSelectedTabIndicatorColor(Theme.getColor(Theme.key_chats_actionBackground));
+        tabLayout.addTab(tabLayout.newTab().setText("全部").setTag("all"));
+        tabLayout.addTab(tabLayout.newTab().setText("私聊").setTag("users"));
+        tabLayout.addTab(tabLayout.newTab().setText("群组").setTag("groups"));
+        tabLayout.addTab(tabLayout.newTab().setText("频道").setTag("channels"));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.d("lao-debug", tab.getTag().toString());
+                MessagesController.getInstance().updateDialogFilter(tab.getTag().toString());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        linearLayout.addView(tabLayout, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT));
         
         listView = new RecyclerListView(context);
         listView.setVerticalScrollBarEnabled(true);
@@ -892,6 +929,8 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         if (!onlySelect && dialogsType == 0) {
             frameLayout.addView(fragmentContextView = new FragmentContextView(context, this), LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, 39, Gravity.TOP | Gravity.LEFT, 0, -36, 0, 0));
         }
+
+        linearLayout.addView(frameLayout, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT));
 
         return fragmentView;
     }
