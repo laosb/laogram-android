@@ -364,7 +364,6 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("lao-debug", tab.getTag().toString());
                 MessagesController.getInstance().updateDialogFilter(tab.getTag().toString());
             }
             @Override

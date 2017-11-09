@@ -19,7 +19,6 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.telegram.SQLite.SQLiteCursor;
