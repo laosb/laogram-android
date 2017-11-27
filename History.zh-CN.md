@@ -1,5 +1,11 @@
 # 更新日志
 
+## 1.1.1 build 1237
+
+* 调整：中文、日语姓名现在正确地「先姓后名」显示了。（感谢 @twiceyuan 在 DrKLO/Telegram#1430 的 PR）
+* 调整：英文翻译中，「个人」选项卡从「Individuals」改为「People」，使其不会被在大多数设备上换行显示，同时符合语言习惯。
+* 调整：Telegram Call 结束后，外部音乐现在会继续播放。（感谢 @softkot 在 DrKLO/Telegram#1445 的 PR）
+
 ## 1.1.0 build 1233
 
 * 移除：抽屉菜单中的 Telegram FAQ，使菜单更简单。您依然可以从设置中打开 Telegram FAQ。
