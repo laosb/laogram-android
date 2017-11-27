@@ -97,7 +97,7 @@
     <!--chats view-->
     <string name="NewConversationShortcut">New conversation</string>
     <string name="All">All</string>
-    <string name="Individuals">Individuals</string>
+    <string name="Individuals">People</string>
     <string name="Groups">Groups</string>
     <string name="Channels">Channels</string>
     <string name="Settings">Settings</string>
