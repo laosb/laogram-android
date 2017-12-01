@@ -72,10 +72,6 @@ import android.widget.TextView;
 
 import com.android.internal.telephony.ITelephony;
 
-import net.hockeyapp.android.CrashManager;
-import net.hockeyapp.android.CrashManagerListener;
-import net.hockeyapp.android.UpdateManager;
-
 import org.telegram.PhoneFormat.PhoneFormat;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
@@ -279,30 +275,7 @@ public class AndroidUtilities {
     }
 
     public static boolean isGoogleMapsInstalled(final BaseFragment fragment) {
-        try {
-            ApplicationLoader.applicationContext.getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            if (fragment.getParentActivity() == null) {
-                return false;
-            }
-            AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getParentActivity());
-            builder.setMessage("Install Google Maps?");
-            builder.setPositiveButton(LocaleController.getString("OK", R.string.OK), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.apps.maps"));
-                        fragment.getParentActivity().startActivityForResult(intent, 500);
-                    } catch (Exception e) {
-                        FileLog.e(e);
-                    }
-                }
-            });
-            builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
-            fragment.showDialog(builder.create());
-            return false;
-        }
+		return true;
     }
 
     public static boolean isInternalUri(Uri uri) {
@@ -1204,27 +1177,6 @@ public class AndroidUtilities {
             window.clearFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         }
     }*/
-
-    public static void checkForCrashes(Activity context) {
-        CrashManager.register(context, BuildVars.DEBUG_VERSION ? BuildVars.HOCKEY_APP_HASH_DEBUG : BuildVars.HOCKEY_APP_HASH, new CrashManagerListener() {
-            @Override
-            public boolean includeDeviceData() {
-                return true;
-            }
-        });
-    }
-
-    public static void checkForUpdates(Activity context) {
-        if (BuildVars.DEBUG_VERSION) {
-            UpdateManager.register(context, BuildVars.DEBUG_VERSION ? BuildVars.HOCKEY_APP_HASH_DEBUG : BuildVars.HOCKEY_APP_HASH);
-        }
-    }
-
-    public static void unregisterUpdates() {
-        if (BuildVars.DEBUG_VERSION) {
-            UpdateManager.unregister();
-        }
-    }
 
     public static void addToClipboard(CharSequence str) {
         try {
