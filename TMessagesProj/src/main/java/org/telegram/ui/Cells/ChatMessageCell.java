@@ -2828,7 +2828,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                         if (preferences.getBoolean("map_autonavi", true)) {
                             currentUrl = String.format(Locale.US, "http://restapi.amap.com/v3/staticmap?location=%.6f,%.6f&zoom=17&size=72*72&scale=%d&markers=small,,A:%.6f,%.6f&key=e39d2978b7f38d035ca97643c17eecde", lon, lat, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lon, lat);
                         } else {
-                            currentUrl = String.format(Locale.US, "https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=15&size=72x72&maptype=roadmap&scale=%d&markers=color:red|size:mid|%f,%f&sensor=false", lat, lon, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lat, lon);
+                            currentUrl = String.format(Locale.US, "http://staticmap.openstreetmap.de/staticmap.php?center=%f,%f&zoom=30&size=144x144&maptype=cycle&markers=%f,%f", lat, lon, lat, lon);
                         }
                     } else {
                         availableTimeWidth = AndroidUtilities.dp(200 - 14);
@@ -2839,7 +2839,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                         if (preferences.getBoolean("map_autonavi", true)) {
                             currentUrl = String.format(Locale.US, "http://restapi.amap.com/v3/staticmap?location=%.6f,%.6f&zoom=17&size=200*100&scale=%d&markers=small,,A:%.6f,%.6f&key=e39d2978b7f38d035ca97643c17eecde", lon, lat, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lon, lat);
                         } else {
-                            currentUrl = String.format(Locale.US, "https://maps.googleapis.com/maps/api/staticmap?center=%f,%f&zoom=15&size=200x100&maptype=roadmap&scale=%d&markers=color:red|size:mid|%f,%f&sensor=false", lat, lon, Math.min(2, (int) Math.ceil(AndroidUtilities.density)), lat, lon);
+                            currentUrl = String.format(Locale.US, "http://staticmap.openstreetmap.de/staticmap.php?center=%f,%f&zoom=30&size=400x200&maptype=cycle&markers=%f,%f", lat, lon, lat, lon);
                         }
                     }
                     photoImage.setImage(currentUrl, null, Theme.chat_locationDrawable[messageObject.isOutOwner() ? 1 : 0], null, 0);
