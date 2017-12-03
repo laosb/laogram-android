@@ -76,7 +76,7 @@ cd ffmpeg
 
 #arm platform
 PLATFORM=$NDK/platforms/android-16/arch-arm
-PREBUILT=$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64
+PREBUILT=$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 #Change to linux-x86_64 if you are using linux to do so.
 LD=$PREBUILT/bin/arm-linux-androideabi-ld
 AR=$PREBUILT/bin/arm-linux-androideabi-ar
 NM=$PREBUILT/bin/arm-linux-androideabi-nm
@@ -101,7 +101,7 @@ build_one
 
 #x86 platform
 PLATFORM=$NDK/platforms/android-16/arch-x86
-PREBUILT=$NDK/toolchains/x86-4.9/prebuilt/linux-x86_64
+PREBUILT=$NDK/toolchains/x86-4.9/prebuilt/darwin-x86_64 #Change to linux-x86_64 if you are using linux to do so.
 LD=$PREBUILT/bin/i686-linux-android-ld
 AR=$PREBUILT/bin/i686-linux-android-ar
 NM=$PREBUILT/bin/i686-linux-android-nm
